@@ -1,0 +1,18 @@
+---
+- name: Get Infos from hosts
+  hosts: Ubuntu
+  # gather_facts: false
+  tasks:
+    - name: Print infos of host
+      ansible.builtin.debug:
+        msg:
+          - "Der Hostname ist: {{ ansible_hostname }}"
+          - "Das Betriebssystem ist: {{ ansible_distribution }}"
+          - "Das genaue Release ist: {{ ansible_distribution_release }}"
+          - "Version: {{ ansible_distribution_version }}"
+          #- "Die IP-Adresse lautet: {{ ansible_default_ipv4.address }}"
+          #- "Die Ethernet MAC-Adresse ist: {{ ansible_default_ipv4.macaddress }}"
+          - "Die Maschine hat ingesamt {{ ansible_memtotal_mb }} MB RAM"
+          - "Die Maschine hat zur Zeit noch {{ ansible_memfree_mb }} MB RAM frei"
+          - "Die VM ist virtualisiert mit: {{ ansible_virtualization_tech_guest }}"
+          - "Die Python Version ist: {{ ansible_python_version }}"

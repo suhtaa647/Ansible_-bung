@@ -2,7 +2,7 @@
 - name: Verzeichnis anlegen
 
   hosts: all
-  
+
   tasks:
     - name: Stelle sicher, dass das der Ordner angelegt ist.
       # Diese Task wird mit dem angemeldeten Benutzer
@@ -12,4 +12,5 @@
       # und Gruppenzuordnung automatisch richtig werden
       ansible.builtin.file:
         path: /home/qskills/foo/
-        state: directory 
+        state: directory
+        mode: "0755"

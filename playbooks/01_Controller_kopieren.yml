@@ -1,33 +1,35 @@
 ---
 - name: Kopiert das Controller-System
 
-  hosts: 
+  hosts:
     - ubuntu1
     # - ubuntu2
     # - Ubuntu
   vars:
     variablenname: WertderVariable
-  
+
   tasks:
     - name: User qskills soll da sein
       ansible.builtin.user:
         name: qskills
         state: present
-      become: yes
+      become: true
 
     - name: Stelle das Verzeichnis /home/qskills/foo sicher
       ansible.builtin.file:
         name: /home/qskills/foo
         state: directory
         owner: qskills
+        mode: "0755"
 
     - name: Verteile das Inventory
       ansible.builtin.copy:
-        src: /home/qskills/inventory
+        src: /home/qskills/code/inventory
         dest: /home/qskills/foo/inventory
-    
+        mode: "0755"
+
     - name: Sicherstellen, dass Ansible installiert ist
       ansible.builtin.package:
         name: ansible
         state: present
-      become: yes
+      become: true

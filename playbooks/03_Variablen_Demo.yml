@@ -1,0 +1,26 @@
+---
+- name: Variablen-Demo
+  hosts: all
+  vars:
+    var1: 1
+    var2: 2
+    var3: 3
+    verkehrsmittel:
+      - Dreirad
+      - Fahrrad
+      - Auto
+      - Bus
+  tasks:
+    - name: Zeige Variablen aus den Playvars
+      vars:
+        var4: 777
+      ansible.builtin.debug:
+        msg: "{{ var1 }} {{ var2 }} {{ var3 }} {{ var4 }}"
+    - name: Zeige Variablen aus den Taskvars
+      vars:
+        var1: 1111
+      ansible.builtin.debug:
+        msg: "{{ var1 }} {{ var2 }} {{ var3 }}"
+    - name: Zeige einen Listen-Wert an
+      ansible.builtin.debug:
+        msg: "Die fortgeschrittene Form der Fortbewegung ist {{ verkehrsmittel[3] }}"
