@@ -1,0 +1,15 @@
+---
+- name: Verzeichnis anlegen
+
+  hosts: all
+  
+  tasks:
+    - name: Stelle sicher, dass das der Ordner angelegt ist.
+      # Diese Task wird mit dem angemeldeten Benutzer
+      # ausgeführt. Wenn wir das Playbook oder die Task
+      # nicht mit "become" ausgeführt haben, ist das
+      # bei uns qskills. Das hat zur Folge, dass Eigentümer-
+      # und Gruppenzuordnung automatisch richtig werden
+      ansible.builtin.file:
+        path: /home/qskills/foo/
+        state: directory 
