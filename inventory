@@ -1,0 +1,48 @@
+### Einzelhosts
+
+# b1 ansible_host=redhat2 ansible_port=2222
+
+
+### Gruppendefinitionen
+
+[RedHat]
+redhat1
+redhat2
+
+[Debian]
+debian1
+debian2
+
+[Suse]
+suse1
+suse2
+
+[Ubuntu]
+ubuntu1
+ubuntu2
+
+[Webserver]
+ubuntu1
+suse1
+
+[Deployment]
+redhat1
+suse2
+
+
+### Gruppen aus Gruppen
+
+[Productive:children]
+Webserver
+Deployment
+
+
+### Gruppenvariablen
+
+### Variable für alle Rechner der Gruppe Suse
+### Die Definition der Variable ansible_python_interpreter lässt die Warnmeldung
+### bei Suse-Systemen verschwinden mit folgender Einstellung:
+[Suse:vars]
+ansible_python_interpreter=/usr/bin/python3.12
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
