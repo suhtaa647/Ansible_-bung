@@ -1,0 +1,32 @@
+---
+- name: Auswerten einer when-Bedingung
+
+  hosts: all
+  vars:
+    distro1: ubuntu1
+    distro2: suse2
+    nodistro1: Debian
+    nodistro2: Suse
+
+
+  tasks:
+    - name: Installiere Package git auf ubuntu1 und suse2
+      ansible.builtin.package:
+        name: git
+        state: present
+      when: ansible_hostname in [distro1, distro2]
+      become: true
+
+    - name: Sicherstellen das Curl-minimal auf RedHat Systemen nicht ist
+      ansible.builtin.package:
+        name: curl-minimal
+        state: absent
+      when: ansible_os_family == "RedHat"
+      become: true
+
+    - name: Sicherstellen das Curl auf allen Systemen sind außer Debian und Suse
+      ansible.builtin.package:
+        name: Curl
+        state: present
+      when: ansible_os_family not in [nodistro1, nodistro2]
+      become: true

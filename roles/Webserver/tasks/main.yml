@@ -1,0 +1,6 @@
+---
+# tasks file for Webserver
+
+- name: 'Ensure the webserver is available (main)'
+  ansible.builtin.include_tasks:
+    file: ./server.yml

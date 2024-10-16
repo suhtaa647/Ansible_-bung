@@ -1,0 +1,19 @@
+---
+- name: Idempotenz
+
+  hosts: ubuntu1
+
+  tasks:
+    - name: Der Befehl id
+      ansible.builtin.command: "id"
+      register: register_ergebnis_von_einem_befehl
+      changed_when: false
+
+    - name: Gesamte registrierte Variable ausgeben
+      ansible.builtin.debug:
+        msg: "Der gesamte Inhalt von der Registrierten Variable ist {{ register_ergebnis_von_einem_befehl }}"
+
+    - name: Ergebnis prüfen und ausgeben
+      ansible.builtin.debug:
+        msg: "Der Befehl id war erfolgreich!"
+      when: "register_ergebnis_von_einem_befehl['rc'] == 0"

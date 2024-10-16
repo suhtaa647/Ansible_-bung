@@ -1,0 +1,32 @@
+---
+- name: Prüfen der Erreichbarkeit von Adress-Erreichbarkeit vom Zielsystem aus
+
+  hosts: ubuntu1
+
+  vars:
+    systeme:
+      - host1
+      - host2
+      - www.b1-systems.de
+
+  tasks:
+    - name: Installiere mir IPutils-ping auf den Hostssystemen
+      ansible.builtin.package:
+        name: "iputils-ping"
+        state: present
+      become: true
+
+    - name: ICMP-ping
+      ansible.builtin.command: "ping -c 1 {{ item }}"
+      register: register_ping
+      failed_when: "register_ping['rc'] != 0"
+      loop: "{{ groups['all'] }}"
+      changed_when: false
+
+    - name: Debugging Alles Diese
+      ansible.builtin.debug:
+        msg: |
+          {{ group_names }}
+          {{ groups['all'] }}
+          {{ systeme }}
+      tags: [debug]

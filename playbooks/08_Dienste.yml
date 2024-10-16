@@ -1,0 +1,31 @@
+---
+
+- name: Ein Playbook mit einem Loop, der sicherstellt, dass Sachens da sind
+
+  hosts: ubuntu1
+
+  vars:
+    check_packages:
+      - cron
+      - openssh-server
+      - apache2
+
+    check_services:
+      - ssh
+      - cron
+      - apache2
+
+  tasks:
+    - name: Prüfe ob die Pakete vorhanden sind. Pakete {{ check_packages }}
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      become: true
+      loop: "{{ check_packages }}"
+
+    - name: Prüfe, ob die Dienste laufen. Dienste {{ check_services }}
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      become: true
+      loop: "{{ check_services }}"

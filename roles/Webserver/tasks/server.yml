@@ -1,0 +1,5 @@
+---
+- name: Make sure that the webserver package is installed
+  ansible.builtin.package:
+    name: apache2
+    state: present

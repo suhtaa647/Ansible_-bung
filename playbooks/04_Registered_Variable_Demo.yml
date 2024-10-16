@@ -1,0 +1,29 @@
+---
+- name: A task where the result goes into a registered variable
+
+  hosts: ubuntu2
+
+  tasks:
+    - name: Ausgabe aus id in eine registrierte Variable
+      ansible.builtin.command: "id"
+      register: registrierte_variable
+      changed_when: false
+
+    - name: Ausgabe der Registrierten Variablen
+      ansible.builtin.debug:
+        msg: "Hier der vollständige Inhalt des Dictionarys: {{ registrierte_variable }}"
+
+    - name: Hier wird die ausgabe von PWD in path_variable hinterlegt
+      ansible.builtin.command: "pwd"
+      register: path_variable
+      changed_when: false
+
+    - name: Ausgabe der PWD_Var
+      ansible.builtin.debug:
+        msg: "Hier ist der Pfad der jeweiligen Ubuntu2: {{ path_variable['stdout'] }}"
+    - name: Ausgabe von STDOUT des Befehls id von oben
+      ansible.builtin.debug:
+        msg: "Hier der Wert vom Key stdout des Dictionarys: {{ registrierte_variable['stdout'] }}"
+    - name: Ausgabe von STDOUT des Befehls id von oben
+      ansible.builtin.debug:
+        msg: "Hier der Wert vom Key delta des Dictionarys: {{ registrierte_variable['delta'] }}"
