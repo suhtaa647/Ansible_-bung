@@ -1,0 +1,22 @@
+---
+- name: Local play
+  hosts: all
+  vars:
+    messages: "From local play"
+  tasks:
+    - name: Debug-Message
+      ansible.builtin.debug:
+        msg: "{{ messages }}"
+      tags: local
+    ### not available yet:
+    # - name: Debug-Message with custom filter
+    #   ansible.builtin.debug:
+    #     msg: "{{ messages | b1.ansible.uppercase_input }}"
+    #   tags: [local,custom]
+    # - name: Use Custom module
+    #   b1.ansible.hello_world:
+    #     content: "{{ messages }}"
+    #   tags: [local,custom]
+- name: Reuse playbook from other collection
+  ansible.builtin.import_playbook: b1.ansible.RoleWebserver
+  tags: imported

@@ -1,0 +1,12 @@
+ #requirements.yml
+## collections:
+##   - name: b1.ansible
+##     version: 1.0.0
+##     source: ../../b1/ansible
+##     type: dir
+
+ # requirements.yml
+  collections:
+    - name: https://108795.training.b1-systems.de/git/Lamoria/collection.git
+      version: master
+      type: git

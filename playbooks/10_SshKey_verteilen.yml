@@ -1,0 +1,4 @@
+---
+- name: Erstellen von einem Schlüsselpaar und Verteilung des PublicKeys auf Host Inventory
+  hosts: all
+  vars:
